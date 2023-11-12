@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
+import 'package:flutter_task_management_app/ui/widgets/body_background_widget.dart';
 import '../../utility/utility.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -27,18 +28,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            SvgPicture.asset(
-              backgroundImage,
-              width: double.infinity,
-              height: double.infinity,
-              fit: BoxFit.cover,
-            ),
-            Center(
-              child: SvgPicture.asset(logo, width: 130,),
-            )
-          ],
+        child: BodybackgroundWidget(
+          child: Center(
+            child: SvgPicture.asset(logo, width: 130,),
+          ),
         ),
       ),
     );
