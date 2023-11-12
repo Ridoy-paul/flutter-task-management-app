@@ -9,7 +9,14 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: BodybackgroundWidget(
-          child: Container(),
+          child: Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: MediaQuery.sizeOf(context).height * 0.2,),
+            child: Column(
+              children: [
+                Text("Get Started With")
+              ],
+            ),
+          ),
         ),
       ),
     );
