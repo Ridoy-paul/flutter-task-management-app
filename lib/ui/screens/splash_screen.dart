@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_task_management_app/utility/utility.dart';
+import '../../utility/utility.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -10,6 +10,17 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    super.initState();
+    goToLogin();
+  }
+
+  void goToLogin() {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
