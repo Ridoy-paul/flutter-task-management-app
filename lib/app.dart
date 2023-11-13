@@ -8,7 +8,7 @@ class TaskManagementApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
       home: const SplashScreen(),
       theme: ThemeData(
 
