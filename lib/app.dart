@@ -14,7 +14,7 @@ class TaskManagementApp extends StatelessWidget {
 
         ///this is used for input type style ---------------->>>>>>>>>>>
         inputDecorationTheme: InputDecorationTheme(
-            fillColor: colorAss,
+            fillColor: colorWhite,
             filled: true,
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
@@ -32,6 +32,15 @@ class TaskManagementApp extends StatelessWidget {
 
         primaryColor: colorGreen,
         primarySwatch: Colors.green,
+
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30),
+            )
+          ),
+        ),
       ),
     );
   }

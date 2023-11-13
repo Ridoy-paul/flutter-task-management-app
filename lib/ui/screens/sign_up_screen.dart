@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
+import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
 import '../widgets/body_background_widget.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +18,12 @@ class LoginScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 80,
+                    height: 50,
                   ),
-                  Text("Get Started With",
-                      style: Theme.of(context).textTheme.titleLarge),
+                  Text(
+                      "Join With Us",
+                      style: Theme.of(context).textTheme.titleLarge,
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
@@ -29,13 +31,30 @@ class LoginScreen extends StatelessWidget {
                     keyboardType: TextInputType.emailAddress,
                     decoration: inputStyle("Email"),
                   ),
-                  const SizedBox(
-                    height: 15,
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: inputStyle("First Name"),
                   ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    decoration: inputStyle("Last Name"),
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    keyboardType: TextInputType.phone,
+                    decoration: inputStyle("Mobile"),
+                  ),
+                  const SizedBox(height: 15),
+
+
+
                   TextFormField(
                     obscureText: true,
                     decoration: inputStyle("Password"),
                   ),
+
                   const SizedBox(
                     height: 15,
                   ),
@@ -46,38 +65,21 @@ class LoginScreen extends StatelessWidget {
                       child: const Icon(Icons.arrow_circle_right_outlined),
                     ),
                   ),
-                  const SizedBox(height: 48,),
-                  Center(
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Forgot Password?",
-                        style: TextStyle(
-                            color: Colors.green.shade300, fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
+                  const SizedBox(height: 20,),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
-                          "Don't have an account?",
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                              color: colorGray,
-                          ),
-                        ),
+                       const Text("Already have an account?", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: colorGray),),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen(),),);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen()));
                           },
                           child: Text(
-                            "Sign up",
+                            "Login",
                             style: TextStyle(
-                                color: Colors.green.shade300, fontSize: 16,
+                              color: Colors.green.shade300,
+                              fontSize: 16,
                             ),
                           ),
                         ),
