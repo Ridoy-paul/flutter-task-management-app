@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/screens/forgot_password_screen.dart';
 import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
 import '../widgets/body_background_widget.dart';
@@ -50,9 +49,7 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 48,),
                   Center(
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordScreen()));
-                      },
+                      onPressed: () {},
                       child: Text(
                         "Forgot Password?",
                         style: TextStyle(
