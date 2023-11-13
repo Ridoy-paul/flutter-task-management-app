@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/style.dart';
 import '../widgets/body_background_widget.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -10,10 +11,25 @@ class LoginScreen extends StatelessWidget {
       body: SafeArea(
         child: BodybackgroundWidget(
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 30, vertical: MediaQuery.sizeOf(context).height * 0.2,),
+            padding: const  EdgeInsets.all(24),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text("Get Started With")
+                const SizedBox(height: 80,),
+                Text("Get Started With", style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 16,),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: inputStyle("Email"),
+                ),
+                const SizedBox(height: 15,),
+                TextFormField(
+                  obscureText: true,
+                  decoration: inputStyle("Password"),
+                ),
+                const SizedBox(height: 15,),
+                ElevatedButton(onPressed: (){}, child: Icon(Icons.arrow_circle_right_outlined))
+
               ],
             ),
           ),
