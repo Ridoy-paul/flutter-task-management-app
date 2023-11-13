@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/screens/cancel_task_screen.dart';
+import 'package:flutter_task_management_app/ui/screens/completed_task_screen.dart';
+import 'package:flutter_task_management_app/ui/screens/new_task_screen.dart';
+import 'package:flutter_task_management_app/ui/screens/progress_task_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
 
 class MainBottomNavScreen extends StatefulWidget {
@@ -11,7 +15,12 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> _screens = [];
+  List<Widget> _screens = [
+    NewTaskScreen(),
+    ProgressTaskScreen(),
+    CompletedTaskScreen(),
+    CancelTaskScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
