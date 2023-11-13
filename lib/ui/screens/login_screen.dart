@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_task_management_app/ui/screens/forgot_password_screen.dart';
+import 'package:flutter_task_management_app/ui/screens/main_bottom_nav_screen.dart';
 import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
 import '../widgets/body_background_widget.dart';
@@ -43,7 +44,9 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen(),),);
+                      },
                       child: const Icon(Icons.arrow_circle_right_outlined),
                     ),
                   ),

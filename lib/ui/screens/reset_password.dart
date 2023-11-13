@@ -61,7 +61,7 @@ class ResetPasswordScreen extends StatelessWidget {
                       onPressed: () {
 
                       },
-                      child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: const Text("Confirm", style: TextStyle(fontSize: 16),),
                     ),
                   ),
                   const SizedBox(height: 18,),
@@ -79,7 +79,7 @@ class ResetPasswordScreen extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginScreen(),),);
+                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
                           },
                           child: Text(
                             "Sign In",
