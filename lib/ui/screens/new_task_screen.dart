@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/screens/add_new_task_screen.dart';
 import '../widgets/new_task_summery_widget.dart';
 import '../widgets/profile_summery_card_widget.dart';
 import '../widgets/task_item_card_widget.dart';
@@ -54,6 +55,12 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewTaskScreen(),),);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }
