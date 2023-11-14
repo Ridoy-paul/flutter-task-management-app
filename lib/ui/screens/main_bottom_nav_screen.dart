@@ -15,7 +15,7 @@ class MainBottomNavScreen extends StatefulWidget {
 class _MainBottomNavScreenState extends State<MainBottomNavScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> _screens = [
+  final List<Widget> _screens = const [
     NewTaskScreen(),
     ProgressTaskScreen(),
     CompletedTaskScreen(),
