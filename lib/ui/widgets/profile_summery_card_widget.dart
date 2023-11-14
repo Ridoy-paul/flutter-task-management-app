@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/screens/edit_profile_screen.dart';
 import '../style.dart';
 
 class ProfileSummery extends StatelessWidget {
   const ProfileSummery({
     super.key,
+    this.enableOnTap = true,
   });
+
+  final bool enableOnTap;
 
   @override
   Widget build(BuildContext context) {
-    return const ListTile(
+    return ListTile(
+      onTap: () {
+        if(enableOnTap) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfileScreen(),),);
+        }
+      },
       leading: CircleAvatar(
         child: Icon(Icons.person),
       ),

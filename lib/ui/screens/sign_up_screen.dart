@@ -47,9 +47,6 @@ class SignUpScreen extends StatelessWidget {
                     decoration: inputStyle("Mobile"),
                   ),
                   const SizedBox(height: 15),
-
-
-
                   TextFormField(
                     obscureText: true,
                     decoration: inputStyle("Password"),
