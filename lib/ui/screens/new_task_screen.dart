@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/style.dart';
+import '../widgets/new_task_summery_widget.dart';
+import '../widgets/profile_summery_card_widget.dart';
+import '../widgets/task_item_card_widget.dart';
 
 class NewTaskScreen extends StatefulWidget {
   const NewTaskScreen({super.key});
@@ -15,62 +17,41 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ListTile(
-              leading: CircleAvatar(
-                child: Icon(Icons.person),
+            const ProfileSummery(),
+            const SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: EdgeInsets.only(left: 8.0, right: 8),
+                child: Row(
+                  children: [
+                    SummeryCard(
+                      title: "New",
+                      value: "9",
+                    ),
+                    SummeryCard(
+                      title: "Completed",
+                      value: "9",
+                    ),
+                    SummeryCard(
+                      title: "Progress",
+                      value: "9",
+                    ),
+                    SummeryCard(
+                      title: "Canceled",
+                      value: "9",
+                    ),
+                  ],
+                ),
               ),
-              title: Text("Ridoy Paul", style: TextStyle(color: colorWhite, fontWeight: FontWeight.w700),),
-              subtitle: Text("cse.ridoypaul@gmail.com", style: TextStyle(color: colorWhite),),
-              trailing: Icon(Icons.arrow_forward),
-              tileColor: colorGreen,
             ),
-            Row(
-              children: [
-                SummeryCard(
-                  title: "New",
-                  value: "9",
-                ),
-                SummeryCard(
-                  title: "New",
-                  value: "9",
-                ),
-                SummeryCard(
-                  title: "New",
-                  value: "9",
-                ),
-                SummeryCard(
-                  title: "New",
-                  value: "9",
-                ),
-              ],
-            )
-
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class SummeryCard extends StatelessWidget {
-  const SummeryCard({
-    super.key,
-    required this.title,
-    required this.value
-  });
-
-  final String title;
-  final String value;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
-        child: Column(
-          children: [
-            Text(value, style: Theme.of(context).textTheme.titleLarge,),
-            Text(title)
+            Expanded(
+              child: ListView.builder(
+                  itemCount: 10,
+                  itemBuilder: (count, index) {
+                    return const TaskItemCard();
+                },
+              ),
+            ),
           ],
         ),
       ),
