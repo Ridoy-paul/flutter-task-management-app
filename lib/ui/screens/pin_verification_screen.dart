@@ -55,7 +55,7 @@ class _PinVerificationScreenState extends State<PinVerificationScreen> {
                       selectedFillColor: colorWhite,
                       inactiveFillColor: colorWhite,
                     ),
-                    animationDuration: Duration(milliseconds: 300),
+                    animationDuration: const Duration(milliseconds: 300),
                     enableActiveFill: true,
                     //errorAnimationController: errorController,
                     

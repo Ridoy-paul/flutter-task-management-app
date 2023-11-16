@@ -17,15 +17,15 @@ class TaskItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Tittle of the task", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+            const Text("Tittle of the task", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
             const SizedBox(height: 4,),
-            Text("Descripton"),
+            const Text("Descripton"),
             const SizedBox(height: 4,),
-            Text("Date"),
+            const Text("Date"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Chip(
+                const Chip(
                   label: Text(
                     "New",
                     style: TextStyle(color: colorWhite),

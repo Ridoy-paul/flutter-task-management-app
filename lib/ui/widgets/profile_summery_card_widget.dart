@@ -18,12 +18,12 @@ class ProfileSummery extends StatelessWidget {
           Navigator.push(context, MaterialPageRoute(builder: (context) => const EditProfileScreen(),),);
         }
       },
-      leading: CircleAvatar(
+      leading: const CircleAvatar(
         child: Icon(Icons.person),
       ),
-      title: Text("Ridoy Paul", style: TextStyle(color: colorWhite, fontWeight: FontWeight.w700),),
-      subtitle: Text("cse.ridoypaul@gmail.com", style: TextStyle(color: colorWhite),),
-      trailing: Icon(Icons.arrow_forward),
+      title: const Text("Ridoy Paul", style: TextStyle(color: colorWhite, fontWeight: FontWeight.w700),),
+      subtitle: const Text("cse.ridoypaul@gmail.com", style: TextStyle(color: colorWhite),),
+      trailing: const Icon(Icons.arrow_forward),
       tileColor: colorGreen,
     );
   }

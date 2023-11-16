@@ -37,37 +37,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       const SizedBox(
                         height: 16,
                       ),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: colorWhite,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                height: 50,
-                                decoration: const BoxDecoration(
-                                    color: colorGray,
-                                    borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(8),
-                                      bottomLeft: Radius.circular(8),
-                                    )),
-                                child: const Center(child: Text("Photos", style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18, color: colorWhite),),),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Container(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Text("No file selected"),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+                      photoPickerField(),
                       const SizedBox(
                         height: 16,
                       ),
@@ -112,6 +82,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Container photoPickerField() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: colorWhite,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Container(
+              height: 50,
+              decoration: const BoxDecoration(
+                  color: colorGray,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8),
+                  )),
+              child: const Center(
+                child: Text(
+                  "Photos",
+                  style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: colorWhite),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: const EdgeInsets.only(left: 16),
+              child: const Text("No file selected"),
+            ),
+          )
+        ],
       ),
     );
   }
