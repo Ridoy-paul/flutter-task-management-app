@@ -25,6 +25,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
 
+  bool _signUpInProgress = false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -97,29 +100,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          if(_signUpFormKey.currentState!.validate()) {
-                            final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration, body: {
-                              "email": _emailTEController.text.trim(),
-                              "firstName": _firstNameTEController.text.trim(),
-                              "lastName": _lastNameTEController.text.trim(),
-                              "mobile": _mobileTEController.text.trim(),
-                              "password": _passwordTEController.text,
-                            });
-                            if (response.isSuccess) {
+                      child: Visibility(
+                        visible: _signUpInProgress == false,
+                        replacement: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if(_signUpFormKey.currentState!.validate()) {
+
+                              /// This is used for circle progress enable after submit
+                              _signUpInProgress = true;
                               if(mounted) {
-                                showSnackMesage(context, 'Account created successfully!');
+                                setState(() {});
+                              }
+                              ///--End---------->>>>>>>>>>>>>>>>>>>>
+
+                              /// This is used for POST request to server
+                              final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration, body: {
+                                "email": _emailTEController.text.trim(),
+                                "firstName": _firstNameTEController.text.trim(),
+                                "lastName": _lastNameTEController.text.trim(),
+                                "mobile": _mobileTEController.text.trim(),
+                                "password": _passwordTEController.text,
+                              });
+                              ///----End--------------->>>>>>>>>>>>>>>>>
+
+                              /// This is used for circle progress disable after submit
+                              _signUpInProgress = false;
+                              if(mounted) {
+                                setState(() {});
+                              }
+                              ///---End----------------------->>>>>>>>>>>>>>>>>>>>
+
+                              if (response.isSuccess) {
+                                if(mounted) {
+                                  showSnackMesage(context, 'Account created successfully!');
+                                }
+                              }
+                              else {
+                                if(mounted) {
+                                  showSnackMesage(context, 'Account creation failed! Please try again.', true);
+                                }
                               }
                             }
-                            else {
-                              if(mounted) {
-                                showSnackMesage(context, 'Account creation failed! Please try again.', true);
-                              }
-                            }
-                          }
-                        },
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                          },
+                          child: const Icon(Icons.arrow_circle_right_outlined),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10,),
