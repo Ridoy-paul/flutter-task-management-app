@@ -24,10 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordTEController = TextEditingController();
 
   final GlobalKey<FormState> _signUpFormKey = GlobalKey<FormState>();
-
   bool _signUpInProgress = false;
-
-
 
   @override
   Widget build(BuildContext context) {
