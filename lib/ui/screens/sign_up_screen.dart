@@ -101,7 +101,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         visible: _signUpInProgress == false,
                         replacement: circleProgressIndicatorShow(),
                         child: ElevatedButton(
-                          onPressed: signUp ,
+                          onPressed: _signUp ,
                           child: const Icon(Icons.arrow_circle_right_outlined),
                         ),
                       ),
@@ -137,7 +137,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Future<void> signUp() async {
+  Future<void> _signUp() async {
     if (_signUpFormKey.currentState!.validate()) {
       /// This is used for circle progress enable after submit
       _signUpInProgress = true;
