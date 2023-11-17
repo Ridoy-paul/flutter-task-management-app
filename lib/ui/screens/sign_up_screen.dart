@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
 import 'package:flutter_task_management_app/data/utility/urls.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
 import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import '../../data/data_network_caller/network_response.dart';
+import '../../data/utility/helpers.dart';
 import '../widgets/body_background_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -88,6 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         if(value!.length < 6) {
                           return "Enter Password more than 6 letter";
                         }
+                        return null;
                       },
                     ),
 
@@ -99,9 +100,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           if(_signUpFormKey.currentState!.validate()) {
-                            final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration);
-                            log(response.body.toString());
-
+                            final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration, body: {
+                              "email": _emailTEController.text.trim(),
+                              "firstName": _firstNameTEController.text.trim(),
+                              "lastName": _lastNameTEController.text.trim(),
+                              "mobile": _mobileTEController.text.trim(),
+                              "password": _passwordTEController.text,
+                            });
                             if (response.isSuccess) {
                               if(mounted) {
                                 showSnackMesage(context, 'Account created successfully!');
