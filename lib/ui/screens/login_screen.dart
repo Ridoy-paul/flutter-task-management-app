@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_response.dart';
 import 'package:flutter_task_management_app/data/utility/helpers.dart';
+import 'package:flutter_task_management_app/data/utility/urls.dart';
 import 'package:flutter_task_management_app/ui/screens/forgot_password_screen.dart';
 import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
@@ -17,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _passwordTEController = TextEditingController();
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
+  bool _loginInProgress = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          if(_loginFormKey.currentState!.validate()) {
-
-                          }
-                          //Navigator.push(context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen(),),);
-                        },
+                        onPressed: _loginUserConfirm,
+                        // onPressed: () {
+                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen(),),);
+                        // },
                         child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),
@@ -118,4 +120,43 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  Future<void> _loginUserConfirm() async {
+    if(_loginFormKey.currentState!.validate()) {
+      _loginInProgress = true;
+      if(mounted) {
+        setState(() {});
+      }
+
+      NetworkResponse response = await NetworkCaller().postRequest(Urls.login, body: {
+        "email": _emailTEController.text.trim(),
+        "password": _passwordTEController.text,
+      });
+
+      _loginInProgress = false;
+      if(mounted) {
+        setState(() {});
+      }
+
+      if(response.isSuccess) {
+
+      }
+      else {
+
+      }
+
+
+
+    }
+  }
+
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    _passwordTEController.dispose();
+    super.dispose();
+  }
+
+
 }
