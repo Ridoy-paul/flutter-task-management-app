@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
+import 'package:flutter_task_management_app/data/utility/urls.dart';
 import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
+import '../../data/data_network_caller/network_response.dart';
 import '../widgets/body_background_widget.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -62,18 +65,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       controller: _lastNameTEController,
                       keyboardType: TextInputType.text,
                       decoration: inputStyle("Last Name"),
+                      validator: (value) => inputValidate(value, "Please Enter Your Last Name"),
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
                       controller: _mobileTEController,
                       keyboardType: TextInputType.phone,
                       decoration: inputStyle("Mobile"),
+                      validator: (value) => inputValidate(value, "Please Enter Your Mobile Number"),
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
                       controller: _passwordTEController,
                       obscureText: true,
                       decoration: inputStyle("Password"),
+                      validator: (value) {
+                        if(value?.isEmpty ?? true) {
+                          return "Please Enter Your Password";
+                        }
+                        if(value!.length < 6) {
+                          return "Enter Password more than 6 letter";
+                        }
+                      },
                     ),
 
                     const SizedBox(
@@ -82,7 +95,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          if(_signUpFormKey.currentState!.validate()) {
+                            final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration);
+                            if (response.isSuccess) {
+                              if(mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Account has been created!"),
+                                  ),
+                                );
+                              }
+                            }
+                            else {
+                              if(mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text("Account creation failed! Please try again."),
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                        },
                         child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),

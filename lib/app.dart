@@ -16,6 +16,9 @@ class TaskManagementApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
             fillColor: colorWhite,
             filled: true,
+            labelStyle: const TextStyle(
+              color: colorGray,
+            ),
             border: OutlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(10),
