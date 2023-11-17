@@ -6,6 +6,8 @@ const Color colorGray = Color.fromRGBO(109, 117, 119, 1.0);
 const Color colorGreen = Color.fromRGBO(33, 191, 115, 1.0);
 const Color colorBlue = Color.fromRGBO(83, 109, 254, 1.0);
 const Color colorBlack = Color.fromRGBO(9, 0, 0, 1.0);
+const Color colorRed = Color.fromRGBO(245, 0, 87, 1.0);
+
 
 
 

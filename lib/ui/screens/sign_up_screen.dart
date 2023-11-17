@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
 import 'package:flutter_task_management_app/data/utility/urls.dart';
 import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
+import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import '../../data/data_network_caller/network_response.dart';
 import '../widgets/body_background_widget.dart';
 
@@ -98,22 +100,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         onPressed: () async {
                           if(_signUpFormKey.currentState!.validate()) {
                             final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration);
+                            log(response.body.toString());
+
                             if (response.isSuccess) {
                               if(mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Account has been created!"),
-                                  ),
-                                );
+                                showSnackMesage(context, 'Account created successfully!');
                               }
                             }
                             else {
                               if(mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text("Account creation failed! Please try again."),
-                                  ),
-                                );
+                                showSnackMesage(context, 'Account creation failed! Please try again.', true);
                               }
                             }
                           }
@@ -121,7 +117,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         child: const Icon(Icons.arrow_circle_right_outlined),
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 10,),
                     Center(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
