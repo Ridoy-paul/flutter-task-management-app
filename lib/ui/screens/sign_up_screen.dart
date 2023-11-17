@@ -104,45 +104,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         visible: _signUpInProgress == false,
                         replacement: circleProgressIndicatorShow(),
                         child: ElevatedButton(
-                          onPressed: () async {
-                            if(_signUpFormKey.currentState!.validate()) {
-
-                              /// This is used for circle progress enable after submit
-                              _signUpInProgress = true;
-                              if(mounted) {
-                                setState(() {});
-                              }
-                              ///--End---------->>>>>>>>>>>>>>>>>>>>
-
-                              /// This is used for POST request to server
-                              final NetworkResponse response = await NetworkCaller().postRequest(Urls.registration, body: {
-                                "email": _emailTEController.text.trim(),
-                                "firstName": _firstNameTEController.text.trim(),
-                                "lastName": _lastNameTEController.text.trim(),
-                                "mobile": _mobileTEController.text.trim(),
-                                "password": _passwordTEController.text,
-                              });
-                              ///----End--------------->>>>>>>>>>>>>>>>>
-
-                              /// This is used for circle progress disable after submit
-                              _signUpInProgress = false;
-                              if(mounted) {
-                                setState(() {});
-                              }
-                              ///---End----------------------->>>>>>>>>>>>>>>>>>>>
-
-                              if (response.isSuccess) {
-                                if(mounted) {
-                                  showSnackMesage(context, 'Account created successfully!');
-                                }
-                              }
-                              else {
-                                if(mounted) {
-                                  showSnackMesage(context, 'Account creation failed! Please try again.', true);
-                                }
-                              }
-                            }
-                          },
+                          onPressed: signUp ,
                           child: const Icon(Icons.arrow_circle_right_outlined),
                         ),
                       ),
@@ -176,6 +138,57 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> signUp() async {
+    if (_signUpFormKey.currentState!.validate()) {
+      /// This is used for circle progress enable after submit
+      _signUpInProgress = true;
+      if (mounted) {
+        setState(() {});
+      }
+      ///--End---------->>>>>>>>>>>>>>>>>>>>
+
+      /// This is used for POST request to server
+      final NetworkResponse response =
+          await NetworkCaller().postRequest(Urls.registration, body: {
+        "email": _emailTEController.text.trim(),
+        "firstName": _firstNameTEController.text.trim(),
+        "lastName": _lastNameTEController.text.trim(),
+        "mobile": _mobileTEController.text.trim(),
+        "password": _passwordTEController.text,
+      });
+
+      ///----End--------------->>>>>>>>>>>>>>>>>
+
+      /// This is used for circle progress disable after submit
+      _signUpInProgress = false;
+      if (mounted) {
+        setState(() {});
+      }
+      ///---End----------------------->>>>>>>>>>>>>>>>>>>>
+
+      if (response.isSuccess) {
+        _clearTextFields();
+        if (mounted) {
+          showSnackMesage(context, 'Account created successfully!');
+        }
+      } else {
+        if (mounted) {
+          showSnackMesage(
+              context, 'Account creation failed! Please try again.', true,
+          );
+        }
+      }
+    }
+  }
+
+  void _clearTextFields() {
+    _emailTEController.clear();
+    _firstNameTEController.clear();
+    _lastNameTEController.clear();
+    _mobileTEController.clear();
+    _passwordTEController.clear();
   }
 
   @override
