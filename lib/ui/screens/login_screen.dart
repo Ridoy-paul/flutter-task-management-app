@@ -6,7 +6,9 @@ import 'package:flutter_task_management_app/data/utility/urls.dart';
 import 'package:flutter_task_management_app/ui/screens/forgot_password_screen.dart';
 import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
 import 'package:flutter_task_management_app/ui/style.dart';
+import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import '../widgets/body_background_widget.dart';
+import 'main_bottom_nav_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,12 +65,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _loginUserConfirm,
-                        // onPressed: () {
-                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => const MainBottomNavScreen(),),);
-                        // },
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: Visibility(
+                        visible: _loginInProgress == false,
+                        replacement: circleProgressIndicatorShow(),
+                        child: ElevatedButton(
+                          onPressed: _loginUserConfirm,
+                          child: const Icon(Icons.arrow_circle_right_outlined),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 40,),
@@ -139,9 +142,27 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       if(response.isSuccess) {
-
+        if(mounted) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MainBottomNavScreen(),
+            ),
+          );
+        }
       }
       else {
+        if(response.statusCode == 401) {
+          if(mounted) {
+            showSnackMessage(context, "Please check email or password!", true);
+          }
+        }
+        else {
+          if(mounted) {
+            showSnackMessage(context, "Login Failed! Please try again.", true);
+          }
+        }
+
 
       }
 

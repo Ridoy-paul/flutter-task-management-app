@@ -168,11 +168,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (response.isSuccess) {
         _clearTextFields();
         if (mounted) {
-          showSnackMesage(context, 'Account created successfully!');
+          showSnackMessage(context, 'Account created successfully!');
         }
       } else {
         if (mounted) {
-          showSnackMesage(
+          showSnackMessage(
               context, 'Account creation failed! Please try again.', true,
           );
         }
