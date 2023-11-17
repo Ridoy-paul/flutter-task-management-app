@@ -100,11 +100,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: Visibility(
+                      child: Visibility( /// This widget used for Visibility replacement..
                         visible: _signUpInProgress == false,
-                        replacement: const Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        replacement: circleProgressIndicatorShow(),
                         child: ElevatedButton(
                           onPressed: () async {
                             if(_signUpFormKey.currentState!.validate()) {
