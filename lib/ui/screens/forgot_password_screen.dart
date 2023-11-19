@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
-import 'package:flutter_task_management_app/ui/screens/pin_verification_screen.dart';
-import 'package:flutter_task_management_app/ui/style.dart';
+import 'login_screen.dart';
+import 'pin_verification_screen.dart';
+import '../style.dart';
 import '../widgets/body_background_widget.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

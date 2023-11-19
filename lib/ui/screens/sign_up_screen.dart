@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
-import 'package:flutter_task_management_app/data/utility/urls.dart';
-import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
-import 'package:flutter_task_management_app/ui/style.dart';
-import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/utility/urls.dart';
+import 'login_screen.dart';
+import '../style.dart';
+import '../widgets/snack_message.dart';
 import '../../data/data_network_caller/network_response.dart';
 import '../../data/utility/helpers.dart';
 import '../widgets/body_background_widget.dart';

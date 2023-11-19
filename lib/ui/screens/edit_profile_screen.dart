@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/widgets/body_background_widget.dart';
+import '../widgets/body_background_widget.dart';
 import '../style.dart';
 import '../widgets/profile_summery_card_widget.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/screens/login_screen.dart';
-import 'package:flutter_task_management_app/ui/screens/reset_password.dart';
-import 'package:flutter_task_management_app/ui/style.dart';
+import 'login_screen.dart';
+import 'reset_password.dart';
+import '../style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../widgets/body_background_widget.dart';
 
