@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../style.dart';
 
 class TaskItemCard extends StatelessWidget {
