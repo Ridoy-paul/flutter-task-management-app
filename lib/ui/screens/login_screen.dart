@@ -40,8 +40,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 80,
                     ),
-                    Text("Get Started With",
-                        style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      "Get Started With",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -162,11 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
             showSnackMessage(context, "Login Failed! Please try again.", true);
           }
         }
-
-
       }
-
-
 
     }
   }
