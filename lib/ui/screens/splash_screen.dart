@@ -18,7 +18,8 @@ class _SplashScreenState extends State<SplashScreen> {
     goToLogin();
   }
 
-  void goToLogin() {
+  void goToLogin() async{
+
     Future.delayed(const Duration(seconds: 2)).then((value) => {
       Navigator.pushReplacement(
         context,
