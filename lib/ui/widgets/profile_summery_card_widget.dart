@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/ui/screens/edit_profile_screen.dart';
+import '../controllers/auth_controller.dart';
+import '../screens/edit_profile_screen.dart';
+import '../screens/login_screen.dart';
 import '../style.dart';
 
 class ProfileSummery extends StatelessWidget {
@@ -23,7 +25,14 @@ class ProfileSummery extends StatelessWidget {
       ),
       title: const Text("Ridoy Paul", style: TextStyle(color: colorWhite, fontWeight: FontWeight.w700),),
       subtitle: const Text("cse.ridoypaul@gmail.com", style: TextStyle(color: colorWhite),),
-      trailing: const Icon(Icons.arrow_forward),
+      trailing: IconButton(
+        onPressed: () async{
+          await AuthController.clearAuthData();
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
+        },
+        color: colorWhite,
+        icon: const Icon(Icons.logout),
+      ),
       tileColor: colorGreen,
     );
   }
