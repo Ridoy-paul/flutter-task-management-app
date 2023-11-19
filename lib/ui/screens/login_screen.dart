@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
-import 'package:flutter_task_management_app/data/data_network_caller/network_response.dart';
-import 'package:flutter_task_management_app/data/utility/helpers.dart';
-import 'package:flutter_task_management_app/data/utility/urls.dart';
-import 'package:flutter_task_management_app/ui/screens/forgot_password_screen.dart';
-import 'package:flutter_task_management_app/ui/screens/sign_up_screen.dart';
-import 'package:flutter_task_management_app/ui/style.dart';
-import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/data_network_caller/network_response.dart';
+import '../../data/models/user_model.dart';
+import '../../data/utility/helpers.dart';
+import '../../data/utility/urls.dart';
+import '../controllers/auth_controller.dart';
+import 'forgot_password_screen.dart';
+import 'sign_up_screen.dart';
+import '../style.dart';
+import '../widgets/snack_message.dart';
 import '../widgets/body_background_widget.dart';
 import 'main_bottom_nav_screen.dart';
 
@@ -144,6 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
 
       if(response.isSuccess) {
+        await AuthController.saveUserInformation(response.jsonResponse['token'], UserModel.fromJson(response.jsonResponse['data']),);
         if(mounted) {
           Navigator.push(
             context,
