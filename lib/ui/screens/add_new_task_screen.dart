@@ -121,7 +121,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
        }
        else {
          if(mounted) {
-           showSnackMessage(context, "Can not create task, Please try again!", true);
+           showSnackMessage(context, "Something is wrong, Please try again!", true);
          }
        }
       
