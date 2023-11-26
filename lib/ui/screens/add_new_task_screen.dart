@@ -50,7 +50,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           TextFormField(
                             controller: _subjectTEController,
-                            keyboardType: TextInputType.emailAddress,
+                            keyboardType: TextInputType.text,
                             decoration: inputStyle("Subject"),
                             validator: (value) => inputValidate(value, "Please Enter The Subject!"),
                           ),
@@ -59,6 +59,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           TextFormField(
                             controller: _descriptionTEController,
+                            keyboardType: TextInputType.text,
                             maxLines: 8,
                             decoration: const InputDecoration(
                               hintText: "Description"
@@ -111,8 +112,14 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
          setState(() {});
        }
 
-       if(response.isSuccess) {
+       print(response);
 
+       if(response.isSuccess) {
+         _subjectTEController.clear();
+         _descriptionTEController.clear();
+         if(mounted) {
+           showSnackMessage(context, "New Task Created.");
+         }
        }
        else {
          if(mounted) {
