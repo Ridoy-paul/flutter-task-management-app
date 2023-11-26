@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/utility/helpers.dart';
+import '../../data/utility/helpers.dart';
 import '../widgets/body_background_widget.dart';
 import '../style.dart';
 import '../widgets/profile_summery_card_widget.dart';
@@ -57,6 +57,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           decoration: const InputDecoration(
                             hintText: "Decoration"
                           ),
+                          validator: (value) => inputValidate(value, "Description is required!"),
                         ),
                         const SizedBox(
                           height: 15,
