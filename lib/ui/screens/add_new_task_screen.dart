@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/utility/helpers.dart';
 import '../widgets/body_background_widget.dart';
 import '../style.dart';
 import '../widgets/profile_summery_card_widget.dart';
@@ -42,13 +43,16 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           height: 16,
                         ),
                         TextFormField(
+                          controller: _titleTEController,
                           keyboardType: TextInputType.emailAddress,
                           decoration: inputStyle("Title"),
+                          validator: (value) => inputValidate(value, "Please Enter The Title!"),
                         ),
                         const SizedBox(
                           height: 15,
                         ),
                         TextFormField(
+                          controller: _descriptionTEController,
                           maxLines: 8,
                           decoration: const InputDecoration(
                             hintText: "Decoration"
