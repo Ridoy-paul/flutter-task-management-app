@@ -112,8 +112,6 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
          setState(() {});
        }
 
-       print(response);
-
        if(response.isSuccess) {
          _subjectTEController.clear();
          _descriptionTEController.clear();
