@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/data_network_caller/network_response.dart';
+import '../../data/utility/urls.dart';
+import '../widgets/snack_message.dart';
 import '../../data/utility/helpers.dart';
 import '../widgets/body_background_widget.dart';
 import '../style.dart';
@@ -16,6 +20,7 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   final TextEditingController _subjectTEController = TextEditingController();
   final TextEditingController _descriptionTEController = TextEditingController();
   final GlobalKey<FormState> _addNewTaskFormKey = GlobalKey<FormState>();
+  bool _createInProgressStatus = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +70,13 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
                           ),
                           SizedBox(
                             width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: createTask,
-                              child: const Icon(Icons.arrow_circle_right_outlined),
+                            child: Visibility(
+                              visible: _createInProgressStatus == false,
+                              replacement: circleProgressIndicatorShow(),
+                              child: ElevatedButton(
+                                onPressed: createTask,
+                                child: const Icon(Icons.arrow_circle_right_outlined),
+                              ),
                             ),
                           ),
                         ],
@@ -86,6 +95,30 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   /// This function used to create new task
   Future<void> createTask() async {
     if(_addNewTaskFormKey.currentState!.validate()) {
+      _createInProgressStatus = true;
+      if(mounted) {
+        setState(() {});
+      }
+      final NetworkResponse  response = await NetworkCaller().postRequest(Urls.createTask, body: {
+        "title": _subjectTEController.text.trim(),
+        "description": _descriptionTEController.text.trim(),
+        "status": "New",
+      });
+
+      _createInProgressStatus = false;
+
+       if(mounted) {
+         setState(() {});
+       }
+
+       if(response.isSuccess) {
+
+       }
+       else {
+         if(mounted) {
+           showSnackMessage(context, "Can not create task, Please try again!", true);
+         }
+       }
       
     }
   }
