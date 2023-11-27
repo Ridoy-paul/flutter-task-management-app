@@ -111,7 +111,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 height: 100,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: taskCountSummeryListModel.taskCountList!.length,
+                  itemCount: taskCountSummeryListModel.taskCountList?.length ?? 0,
                   itemBuilder: (context, index) {
                     TaskCount taskCount = taskCountSummeryListModel.taskCountList![index];
                     return FittedBox(
