@@ -10,6 +10,7 @@ import 'network_response.dart';
 class NetworkCaller {
   Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body, bool isLogin = false}) async {
 
+    /// This is used for show console log
     log(url);
     log(body.toString());
 
@@ -20,6 +21,7 @@ class NetworkCaller {
             'token': AuthController.token.toString(),
       });
 
+      /// This is used for show console log
       log(response.statusCode.toString());
       log(response.body.toString());
 
