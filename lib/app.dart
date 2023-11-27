@@ -5,9 +5,12 @@ import 'ui/style.dart';
 class TaskManagementApp extends StatelessWidget {
   const TaskManagementApp({super.key});
 
+  static GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigationKey,
       debugShowCheckedModeBanner: true,
       home: const SplashScreen(),
       theme: ThemeData(
