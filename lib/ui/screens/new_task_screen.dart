@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../data/models/task_summery_count_summery_model.dart';
+import '../../data/models/task_count.dart';
 import '../../data/utility/helpers.dart';
 import '../../data/models/task_list_model.dart';
 import '../../data/data_network_caller/network_caller.dart';
@@ -18,7 +20,10 @@ class NewTaskScreen extends StatefulWidget {
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _getNewTaskInProgress = false;
+  bool _getTaskCountSummeryInProgress = false;
+
   TaskListModel taskListModel = TaskListModel();
+  TaskCountSummeryListModel taskCountSummeryListModel = TaskCountSummeryListModel();
   
   Future<void> getNewTaskList() async {
     _getNewTaskInProgress = true;
@@ -38,9 +43,30 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     }
   }
 
+  Future<void> getTaskCountSummeryList() async {
+    _getTaskCountSummeryInProgress = true;
+
+    if(mounted) { /// here mounted means user is in this screen
+      setState(() {});
+    }
+
+    final NetworkResponse response = await NetworkCaller().getRequest(Urls.getTaskStatusCount);
+    if(response.isSuccess) {
+      taskCountSummeryListModel = TaskCountSummeryListModel.fromJson(response.jsonResponse);
+    }
+
+    _getTaskCountSummeryInProgress = false;
+    if(mounted) {
+      setState(() {});
+    }
+  }
+
+
+
   @override
   void initState() {
     super.initState();
+    getTaskCountSummeryList();
     getNewTaskList();
   }
   
@@ -52,29 +78,49 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         child: Column(
           children: [
             const ProfileSummery(),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: EdgeInsets.only(left: 8.0, right: 8),
-                child: Row(
-                  children: [
-                    SummeryCard(
-                      title: "New",
-                      value: "9",
-                    ),
-                    SummeryCard(
-                      title: "Completed",
-                      value: "9",
-                    ),
-                    SummeryCard(
-                      title: "Progress",
-                      value: "9",
-                    ),
-                    SummeryCard(
-                      title: "Canceled",
-                      value: "9",
-                    ),
-                  ],
+            // const SingleChildScrollView(
+            //   scrollDirection: Axis.horizontal,
+            //   child: Padding(
+            //     padding: EdgeInsets.only(left: 8.0, right: 8),
+            //     child: Row(
+            //       children: [
+            //         SummeryCard(
+            //           title: "New",
+            //           value: "9",
+            //         ),
+            //         SummeryCard(
+            //           title: "Completed",
+            //           value: "9",
+            //         ),
+            //         SummeryCard(
+            //           title: "Progress",
+            //           value: "9",
+            //         ),
+            //         SummeryCard(
+            //           title: "Canceled",
+            //           value: "9",
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // ),
+            Visibility(
+              visible: _getTaskCountSummeryInProgress == false,
+              replacement: const LinearProgressIndicator(),
+              child: SizedBox(
+                height: 100,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: taskCountSummeryListModel.taskCountList!.length,
+                  itemBuilder: (context, index) {
+                    TaskCount taskCount = taskCountSummeryListModel.taskCountList![index];
+                    return FittedBox(
+                      child: SummeryCard(
+                        title: taskCount.sId ?? '',
+                        value: taskCount.sum.toString(),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),
