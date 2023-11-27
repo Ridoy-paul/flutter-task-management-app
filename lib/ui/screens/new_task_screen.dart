@@ -83,9 +83,11 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                 visible: _getNewTaskInProgress == false,
                 replacement: circleProgressIndicatorShow(),
                 child: ListView.builder(
-                    itemCount: 10,
+                    itemCount: taskListModel.taskList?.length ?? 0,
                     itemBuilder: (count, index) {
-                      return const TaskItemCard();
+                      return TaskItemCard(
+                        task: taskListModel.taskList![index],
+                      );
                   },
                 ),
               ),

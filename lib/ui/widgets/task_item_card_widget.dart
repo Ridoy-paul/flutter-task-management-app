@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/models/task.dart';
 import '../style.dart';
 
-class TaskItemCard extends StatelessWidget {
+class TaskItemCard extends StatefulWidget {
+  final Task task;
   const TaskItemCard({
     super.key,
+    required this.task,
   });
+
+  @override
+  State<TaskItemCard> createState() => _TaskItemCardState();
+}
+
+class _TaskItemCardState extends State<TaskItemCard> {
+
+
 
   @override
   Widget build(BuildContext context) {

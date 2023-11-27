@@ -2,16 +2,16 @@ import 'task.dart';
 
 class TaskListModel {
   String? status;
-  List<Task>? data;
+  List<Task>? taskList;
 
-  TaskListModel({this.status, this.data});
+  TaskListModel({this.status, this.taskList});
 
   TaskListModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     if (json['data'] != null) {
-      data = <Task>[];
+      taskList = <Task>[];
       json['data'].forEach((v) {
-        data!.add(Task.fromJson(v));
+        taskList!.add(Task.fromJson(v));
       });
     }
   }
@@ -19,8 +19,8 @@ class TaskListModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['status'] = status;
-    if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+    if (this.taskList != null) {
+      data['data'] = this.taskList!.map((v) => v.toJson()).toList();
     }
     return data;
   }
