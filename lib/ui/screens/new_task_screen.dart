@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/data_network_caller/network_response.dart';
+import '../../data/utility/urls.dart';
 import 'add_new_task_screen.dart';
 import '../widgets/new_task_summery_widget.dart';
 import '../widgets/profile_summery_card_widget.dart';
@@ -12,6 +15,20 @@ class NewTaskScreen extends StatefulWidget {
 }
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
+  bool _getNewTaskInProgress = false;
+  
+  Future<void> getNewTaskList() async {
+    _getNewTaskInProgress = true;
+    
+    if(mounted) { /// here mounted means user is in this screen
+      setState(() {});
+    }
+    
+    final NetworkResponse response = await NetworkCaller().getRequest(Urls.getNewTask);
+    
+  }
+  
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
