@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../data/utility/helpers.dart';
+import '../../data/models/task_list_model.dart';
 import '../../data/data_network_caller/network_caller.dart';
 import '../../data/data_network_caller/network_response.dart';
 import '../../data/utility/urls.dart';
@@ -16,6 +18,7 @@ class NewTaskScreen extends StatefulWidget {
 
 class _NewTaskScreenState extends State<NewTaskScreen> {
   bool _getNewTaskInProgress = false;
+  TaskListModel taskListModel = TaskListModel();
   
   Future<void> getNewTaskList() async {
     _getNewTaskInProgress = true;
@@ -25,7 +28,20 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     }
     
     final NetworkResponse response = await NetworkCaller().getRequest(Urls.getNewTask);
-    
+    if(response.isSuccess) {
+      taskListModel = TaskListModel.fromJson(response.jsonResponse);
+    }
+
+    _getNewTaskInProgress = false;
+    if(mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getNewTaskList();
   }
   
   
@@ -63,11 +79,15 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (count, index) {
-                    return const TaskItemCard();
-                },
+              child: Visibility(
+                visible: _getNewTaskInProgress == false,
+                replacement: circleProgressIndicatorShow(),
+                child: ListView.builder(
+                    itemCount: 10,
+                    itemBuilder: (count, index) {
+                      return const TaskItemCard();
+                  },
+                ),
               ),
             ),
           ],
