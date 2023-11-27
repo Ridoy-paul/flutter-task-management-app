@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 import 'network_response.dart';
 
 class NetworkCaller {
-  Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body}) async {
+  Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body, bool isLogin = false}) async {
 
     log(url);
     log(body.toString());
@@ -29,7 +29,19 @@ class NetworkCaller {
           jsonResponse: jsonDecode(response.body),
           statusCode: 200,
         );
-      } else {
+      }
+      else if(response.statusCode == 401) {
+        if(isLogin == false) {
+          backToLogin();
+        }
+
+        return NetworkResponse(
+          isSuccess: false,
+          jsonResponse: jsonDecode(response.body),
+          statusCode: response.statusCode,
+        );
+      }
+      else {
         return NetworkResponse(
           isSuccess: false,
           jsonResponse: jsonDecode(response.body),
