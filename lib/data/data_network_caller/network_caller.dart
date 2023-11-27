@@ -53,9 +53,10 @@ class NetworkCaller {
     }
   }
 
-  void backToLogin() {
+  /// This function is used for backTologin, when token is expired.
+  Future<void> backToLogin() async {
+    await AuthController.clearAuthData();
     Navigator.pushAndRemoveUntil(TaskManagementApp.navigationKey.currentContext!, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
   }
-
 
 }
