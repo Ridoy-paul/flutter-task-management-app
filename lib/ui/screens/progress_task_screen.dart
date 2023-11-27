@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/profile_summery_card_widget.dart';
 import '../widgets/task_item_card_widget.dart';
 

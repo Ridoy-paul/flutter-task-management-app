@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/models/task.dart';
+import '../../data/models/task.dart';
 import '../style.dart';
 
 class TaskItemCard extends StatefulWidget {
@@ -14,9 +14,6 @@ class TaskItemCard extends StatefulWidget {
 }
 
 class _TaskItemCardState extends State<TaskItemCard> {
-
-
-
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -27,18 +24,18 @@ class _TaskItemCardState extends State<TaskItemCard> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Tittle of the task", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
+            Text(widget.task.title ?? '', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),),
             const SizedBox(height: 4,),
-            const Text("Descripton"),
+            Text(widget.task.description ?? ''),
             const SizedBox(height: 4,),
-            const Text("Date"),
+            Text("Date: ${widget.task.createdDate}"),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Chip(
+                Chip(
                   label: Text(
-                    "New",
-                    style: TextStyle(color: colorWhite),
+                    widget.task.status ?? '',
+                    style: const TextStyle(color: colorWhite),
                   ),
                   backgroundColor: colorBlue,
                 ),
