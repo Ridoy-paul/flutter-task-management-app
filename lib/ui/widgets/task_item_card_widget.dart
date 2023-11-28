@@ -2,6 +2,13 @@ import 'package:flutter/material.dart';
 import '../../data/models/task.dart';
 import '../style.dart';
 
+enum TaskStatus {
+  New,
+  Progress,
+  Completed,
+  Cancelled,
+}
+
 class TaskItemCard extends StatefulWidget {
   final Task task;
   const TaskItemCard({
@@ -47,7 +54,9 @@ class _TaskItemCardState extends State<TaskItemCard> {
                           Icons.delete_forever_outlined),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showUpdateStatusModal();
+                      },
                       icon: const Icon(Icons.edit),
                     ),
                   ],
@@ -59,4 +68,47 @@ class _TaskItemCardState extends State<TaskItemCard> {
       ),
     );
   }
+
+  void showUpdateStatusModal() {
+    List<Container> items = TaskStatus.values.map((e) => Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      child: ListTile(
+        onTap: () {
+          print("$e");
+        },
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(color: colorGray)
+        ),
+        leading: Icon(Icons.check),
+        title: Text("${e.name}"),
+      ),
+    )).toList();
+
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(
+            "Update Status",
+            style: TextStyle(fontSize: 18),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: items,
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text("Close"),
+            )
+          ],
+        );
+      },
+    );
+  }
+
 }
