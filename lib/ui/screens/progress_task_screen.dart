@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/profile_summery_card_widget.dart';
-import '../widgets/task_item_card_widget.dart';
+import '../widgets/task_screen_widget.dart';
 
 class ProgressTaskScreen extends StatefulWidget {
   const ProgressTaskScreen({super.key});
@@ -11,32 +10,30 @@ class ProgressTaskScreen extends StatefulWidget {
 
 class _ProgressTaskScreenState extends State<ProgressTaskScreen> {
 
-
-
-  @override
-  void initState() {
-    super.initState();
-
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            const ProfileSummery(),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (count, index) {
-                  //return const TaskItemCard();
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    return const TaskScreen(taskType: "Progress");
   }
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     body: SafeArea(
+  //       child: Column(
+  //         children: [
+  //           const ProfileSummery(),
+  //           Expanded(
+  //             child: ListView.builder(
+  //               itemCount: 10,
+  //               itemBuilder: (count, index) {
+  //                 //return const TaskItemCard();
+  //               },
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
 }
