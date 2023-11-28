@@ -6,6 +6,7 @@ import '../../data/models/task_list_model.dart';
 import '../../data/data_network_caller/network_caller.dart';
 import '../../data/data_network_caller/network_response.dart';
 import '../../data/utility/urls.dart';
+import '../widgets/snack_message.dart';
 import 'add_new_task_screen.dart';
 import '../widgets/new_task_summery_widget.dart';
 import '../widgets/profile_summery_card_widget.dart';
@@ -135,6 +136,15 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                         task: taskListModel.taskList![index],
                         onStatusChange: () {
                           getNewTaskList();
+                        },
+                        showProgress: (inProgress) {
+                          _getNewTaskInProgress = inProgress;
+                          if(mounted) {
+                            setState(() {});
+                            if(inProgress == false) {
+                              showSnackMessage(context, "Task Status Updated.");
+                            }
+                          }
                         },
                       );
                   },

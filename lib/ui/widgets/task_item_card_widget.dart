@@ -14,11 +14,14 @@ enum TaskStatus {
 class TaskItemCard extends StatefulWidget {
   const TaskItemCard({
     super.key,
-    required this.task, required this.onStatusChange,
+    required this.task,
+    required this.onStatusChange,
+    required this.showProgress,
   });
 
   final Task task;
   final VoidCallback onStatusChange;
+  final Function(bool) showProgress;
 
 
   @override
@@ -28,10 +31,14 @@ class TaskItemCard extends StatefulWidget {
 class _TaskItemCardState extends State<TaskItemCard> {
 
   Future<void> updateTaskStatus(String status) async {
+    widget.showProgress(true);
+
     final response = await NetworkCaller().getRequest(Urls.updateTaskStatus(widget.task.sId ?? '', status));
     if(response.isSuccess) {
       widget.onStatusChange();
     }
+
+    widget.showProgress(false);
   }
 
   @override
