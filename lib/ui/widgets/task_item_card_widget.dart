@@ -23,7 +23,6 @@ class TaskItemCard extends StatefulWidget {
   final VoidCallback onStatusChange;
   final Function(bool) showProgress;
 
-
   @override
   State<TaskItemCard> createState() => _TaskItemCardState();
 }
