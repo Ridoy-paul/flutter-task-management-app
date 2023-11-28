@@ -74,6 +74,12 @@ class _TaskScreenState extends State<TaskScreen> {
     }
   }
 
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   print("hello paul");
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -103,30 +109,33 @@ class _TaskScreenState extends State<TaskScreen> {
               ),
             ) : Container(),
             Expanded(
-              child: Visibility(
-                visible: _getTaskInProgress == false,
-                replacement: circleProgressIndicatorShow(),
-                child: ListView.builder(
-                  itemCount: taskListModel.taskList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    return TaskItemCard(
-                      task: taskListModel.taskList![index],
-                      onStatusChange: () {
-                        getTaskList();
-                        if(widget.taskType == "New") {
-                          getTaskCountSummeryList();
-                        }
-                      },
-                      showProgress: (inProgress) {
-                        setState(() {
-                          _getTaskInProgress = inProgress;
-                        });
-                        // if (!inProgress) {
-                        //   showSnackMessage(context, "Task Status Updated.");
-                        // }
-                      },
-                    );
-                  },
+              child: RefreshIndicator(
+                onRefresh: getTaskList,
+                child: Visibility(
+                  visible: _getTaskInProgress == false,
+                  replacement: circleProgressIndicatorShow(),
+                  child: ListView.builder(
+                    itemCount: taskListModel.taskList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      return TaskItemCard(
+                        task: taskListModel.taskList![index],
+                        onStatusChange: () {
+                          getTaskList();
+                          if(widget.taskType == "New") {
+                            getTaskCountSummeryList();
+                          }
+                        },
+                        showProgress: (inProgress) {
+                          setState(() {
+                            _getTaskInProgress = inProgress;
+                          });
+                          // if (!inProgress) {
+                          //   showSnackMessage(context, "Task Status Updated.");
+                          // }
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

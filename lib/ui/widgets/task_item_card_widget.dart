@@ -42,6 +42,19 @@ class _TaskItemCardState extends State<TaskItemCard> {
 
   @override
   Widget build(BuildContext context) {
+
+    Color statusBgColor = colorBlue;
+    if(widget.task.status == 'Progress') {
+      statusBgColor = colorInfo;
+    }
+    else if(widget.task.status == 'Completed') {
+      statusBgColor = colorGreen;
+    }
+    else if(widget.task.status == 'Cancelled') {
+      statusBgColor = colorRed;
+    }
+
+
     return Card(
       elevation: 4,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
@@ -63,7 +76,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
                     widget.task.status ?? '',
                     style: const TextStyle(color: colorWhite),
                   ),
-                  backgroundColor: colorBlue,
+                  backgroundColor: statusBgColor,
                 ),
                 Wrap(
                   children: [
@@ -86,8 +99,6 @@ class _TaskItemCardState extends State<TaskItemCard> {
         ),
       ),
     );
-
-
 
   }
 
