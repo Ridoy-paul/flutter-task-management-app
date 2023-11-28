@@ -79,32 +79,6 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
         child: Column(
           children: [
             const ProfileSummery(),
-            // const SingleChildScrollView(
-            //   scrollDirection: Axis.horizontal,
-            //   child: Padding(
-            //     padding: EdgeInsets.only(left: 8.0, right: 8),
-            //     child: Row(
-            //       children: [
-            //         SummeryCard(
-            //           title: "New",
-            //           value: "9",
-            //         ),
-            //         SummeryCard(
-            //           title: "Completed",
-            //           value: "9",
-            //         ),
-            //         SummeryCard(
-            //           title: "Progress",
-            //           value: "9",
-            //         ),
-            //         SummeryCard(
-            //           title: "Canceled",
-            //           value: "9",
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
             Visibility(
               visible: _getTaskCountSummeryInProgress == false,
               replacement: const LinearProgressIndicator(),
