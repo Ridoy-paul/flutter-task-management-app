@@ -21,6 +21,11 @@ class TaskItemCard extends StatefulWidget {
 }
 
 class _TaskItemCardState extends State<TaskItemCard> {
+
+  Future<void> updateTaskStatus(String status) async {
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -55,7 +60,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
                     ),
                     IconButton(
                       onPressed: () {
-                        showUpdateStatusModal();
+                        showUpdateStatusModal(widget.task.status ?? '');
                       },
                       icon: const Icon(Icons.edit),
                     ),
@@ -67,21 +72,26 @@ class _TaskItemCardState extends State<TaskItemCard> {
         ),
       ),
     );
+
+
+
   }
 
-  void showUpdateStatusModal() {
+  void showUpdateStatusModal(String status) {
     List<Container> items = TaskStatus.values.map((e) => Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
+      margin: const EdgeInsets.symmetric(vertical: 3),
       child: ListTile(
         onTap: () {
           print("$e");
+          updateTaskStatus(e.name);
         },
+        tileColor: status == e.name ? colorGreen : colorWhite,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: BorderSide(color: colorGray)
+            side: BorderSide(color: status != e.name ? colorGray : colorGreen),
         ),
-        leading: Icon(Icons.check),
-        title: Text("${e.name}"),
+        trailing:  status == e.name ? Icon(Icons.check, size: 30, color: status == e.name ? colorWhite : colorBlack,) : null,
+        title: Text(e.name, style:  TextStyle(fontSize: 20, color: status == e.name ? colorWhite : colorBlack,),),
       ),
     )).toList();
 
@@ -92,7 +102,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
         return AlertDialog(
           title: const Text(
             "Update Status",
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 20),
           ),
           content: Column(
             mainAxisSize: MainAxisSize.min,
