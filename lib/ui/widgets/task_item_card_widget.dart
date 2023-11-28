@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/utility/urls.dart';
 import '../../data/models/task.dart';
 import '../style.dart';
 
@@ -10,11 +12,14 @@ enum TaskStatus {
 }
 
 class TaskItemCard extends StatefulWidget {
-  final Task task;
   const TaskItemCard({
     super.key,
-    required this.task,
+    required this.task, required this.onStatusChange,
   });
+
+  final Task task;
+  final VoidCallback onStatusChange;
+
 
   @override
   State<TaskItemCard> createState() => _TaskItemCardState();
@@ -23,7 +28,10 @@ class TaskItemCard extends StatefulWidget {
 class _TaskItemCardState extends State<TaskItemCard> {
 
   Future<void> updateTaskStatus(String status) async {
-
+    final response = await NetworkCaller().getRequest(Urls.updateTaskStatus(widget.task.sId ?? '', status));
+    if(response.isSuccess) {
+      widget.onStatusChange();
+    }
   }
 
   @override
@@ -78,12 +86,13 @@ class _TaskItemCardState extends State<TaskItemCard> {
   }
 
   void showUpdateStatusModal(String status) {
+
     List<Container> items = TaskStatus.values.map((e) => Container(
       margin: const EdgeInsets.symmetric(vertical: 3),
       child: ListTile(
         onTap: () {
-          print("$e");
           updateTaskStatus(e.name);
+          Navigator.pop(context);
         },
         tileColor: status == e.name ? colorGreen : colorWhite,
         shape: RoundedRectangleBorder(
@@ -91,7 +100,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
             side: BorderSide(color: status != e.name ? colorGray : colorGreen),
         ),
         trailing:  status == e.name ? Icon(Icons.check, size: 30, color: status == e.name ? colorWhite : colorBlack,) : null,
-        title: Text(e.name, style:  TextStyle(fontSize: 20, color: status == e.name ? colorWhite : colorBlack,),),
+        title: Text(e.name, style:  TextStyle(fontSize: 20, color: status == e.name ? colorWhite : colorBlack)),
       ),
     )).toList();
 

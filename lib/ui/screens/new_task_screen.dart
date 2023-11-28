@@ -133,6 +133,9 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                     itemBuilder: (count, index) {
                       return TaskItemCard(
                         task: taskListModel.taskList![index],
+                        onStatusChange: () {
+                          getNewTaskList();
+                        },
                       );
                   },
                 ),
