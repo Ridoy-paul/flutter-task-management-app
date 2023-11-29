@@ -14,5 +14,4 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   Widget build(BuildContext context) {
     return const TaskScreen(taskType: "Completed");
   }
-
 }
