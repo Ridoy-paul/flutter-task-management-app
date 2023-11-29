@@ -81,16 +81,19 @@ class _TaskItemCardState extends State<TaskItemCard> {
                 Wrap(
                   children: [
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                          Icons.delete_forever_outlined),
-                    ),
-                    IconButton(
                       onPressed: () {
                         showUpdateStatusModal(widget.task.status ?? '');
                       },
-                      icon: const Icon(Icons.edit),
+                      icon: const Icon(Icons.edit_calendar_rounded, color: colorGreen,),
                     ),
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.delete_forever_outlined,
+                        color: colorRed,
+                      ),
+                    ),
+
                   ],
                 )
               ],
