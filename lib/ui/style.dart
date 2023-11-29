@@ -11,8 +11,6 @@ const Color colorInfo = Color.fromRGBO(0, 176, 255, 1.0);
 const Color colorBg = Color.fromRGBO(250, 248, 246, 1.0);
 
 
-
-
 InputDecoration inputStyle(label) {
   return InputDecoration(
     hintText: "Please Enter "+label,

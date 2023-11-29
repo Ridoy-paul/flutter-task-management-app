@@ -8,6 +8,7 @@ class Urls {
   static String updateTaskStatus(String taskId, String status) => '$_baseUrl/updateTaskStatus/$taskId/$status';
   static String getTask(String status) => '$_baseUrl/listTaskByStatus/$status';
   static String deleteTaskItem(String taskId) => '$_baseUrl/deleteTask/$taskId';
+  static String recoveryVerifyEmail(String email) => '$_baseUrl/RecoverVerifyEmail/$email';
 
 
 
