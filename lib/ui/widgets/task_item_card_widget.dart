@@ -29,6 +29,7 @@ class TaskItemCard extends StatefulWidget {
 
 class _TaskItemCardState extends State<TaskItemCard> {
 
+  /// Function for Update Task Status
   Future<void> updateTaskStatus(String status) async {
     widget.showProgress(true);
 
@@ -39,6 +40,8 @@ class _TaskItemCardState extends State<TaskItemCard> {
 
     widget.showProgress(false);
   }
+
+  /// Function for delete Task Item
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +56,6 @@ class _TaskItemCardState extends State<TaskItemCard> {
     else if(widget.task.status == 'Cancelled') {
       statusBgColor = colorRed;
     }
-
 
     return Card(
       elevation: 0,
