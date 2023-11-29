@@ -42,6 +42,9 @@ class _TaskItemCardState extends State<TaskItemCard> {
   }
 
   /// Function for delete Task Item
+  Future<void> deleteTaskItem(String taskId) async {
+
+  }
 
   @override
   Widget build(BuildContext context) {
