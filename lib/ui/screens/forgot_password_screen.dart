@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
 import 'package:flutter_task_management_app/data/utility/helpers.dart';
+import 'package:flutter_task_management_app/data/utility/urls.dart';
+import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import 'login_screen.dart';
 import 'pin_verification_screen.dart';
 import '../style.dart';
@@ -14,8 +17,10 @@ class ForgotPasswordScreen extends StatefulWidget {
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
-  TextEditingController _emailTEController = TextEditingController();
-  GlobalKey<FormState> _forgotPasswordFormKey = GlobalKey<FormState>();
+  bool _forgotPasswordInProgressStatus = false;
+
+  final TextEditingController _emailTEController = TextEditingController();
+  final GlobalKey<FormState> _forgotPasswordFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +65,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => const PinVerificationScreen()));
-                        },
-                        child: const Icon(Icons.arrow_circle_right_outlined),
+                      child: Visibility(
+                        visible: !_forgotPasswordInProgressStatus,
+                        replacement: circleProgressIndicatorShow(),
+                        child: ElevatedButton(
+                          onPressed: () {
+                            forgotPasswordSubmit();
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const PinVerificationScreen()));
+                          },
+                          child: const Icon(Icons.arrow_circle_right_outlined),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 48,),
@@ -103,4 +113,41 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _emailTEController.dispose();
+    super.dispose();
+  }
+
+  Future<void> forgotPasswordSubmit() async {
+    if(_forgotPasswordFormKey.currentState!.validate()) {
+
+      _forgotPasswordInProgressStatus = true;
+      if (mounted) {
+        setState(() {});
+      }
+
+      final response = await NetworkCaller().getRequest(Urls.recoveryVerifyEmail(_emailTEController.text.trim()));
+      if(response.isSuccess) {
+        //print(response.jsonResponse.status.toString());
+
+       //print(response);
+      }
+      else {
+        if(mounted) {
+          showSnackMessage(context, "Something is error! Please try again.", true);
+        }
+      }
+
+      _forgotPasswordInProgressStatus = false;
+      if (mounted) {
+        setState(() {});
+      }
+
+    }
+  }
+
+
+
 }
