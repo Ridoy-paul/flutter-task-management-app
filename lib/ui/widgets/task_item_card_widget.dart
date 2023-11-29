@@ -38,12 +38,19 @@ class _TaskItemCardState extends State<TaskItemCard> {
       widget.onStatusChange();
     }
 
-    widget.showProgress(false);
+    //widget.showProgress(false);
   }
 
   /// Function for delete Task Item
   Future<void> deleteTaskItem(String taskId) async {
+    widget.showProgress(true);
 
+    final response = await NetworkCaller().getRequest(Urls.deleteTaskItem(widget.task.sId ?? ''));
+    if(response.isSuccess) {
+      widget.onStatusChange();
+    }
+
+    //widget.showProgress(false);
   }
 
   @override
@@ -98,7 +105,7 @@ class _TaskItemCardState extends State<TaskItemCard> {
                     ),
                     IconButton(
                       onPressed: () {
-
+                        deleteTaskItem(widget.task.sId ?? '');
                       },
                       icon: const Icon(
                         Icons.delete_forever_outlined,
