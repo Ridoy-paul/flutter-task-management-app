@@ -143,8 +143,14 @@ class _TaskScreenState extends State<TaskScreen> {
         ),
       ),
       floatingActionButton: widget.taskType == "New" ? FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewTaskScreen(),),);
+        onPressed: () async {
+           await Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewTaskScreen(),),);
+
+           /// This code will run when coming back from add task screen.
+           if (widget.taskType == "New") {
+             getTaskCountSummeryList();
+           }
+           getTaskList();
         },
         child: const Icon(Icons.add),
       ) : null,
