@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/style.dart';
 import 'profile_summery_card_widget.dart';
 import '../../data/models/task_count.dart';
 import '../../data/models/task_summery_count_summery_model.dart';
@@ -83,6 +84,7 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: colorBg,
       body: SafeArea(
         child: Column(
           children: [
@@ -93,18 +95,21 @@ class _TaskScreenState extends State<TaskScreen> {
               replacement: const LinearProgressIndicator(),
               child: SizedBox(
                 height: 100,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: taskCountSummeryListModel.taskCountList?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    TaskCount taskCount = taskCountSummeryListModel.taskCountList![index];
-                    return FittedBox(
-                      child: SummeryCard(
-                        title: taskCount.sId ?? '',
-                        value: taskCount.sum.toString(),
-                      ),
-                    );
-                  },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: taskCountSummeryListModel.taskCountList?.length ?? 0,
+                    itemBuilder: (context, index) {
+                      TaskCount taskCount = taskCountSummeryListModel.taskCountList![index];
+                      return FittedBox(
+                        child: SummeryCard(
+                          title: taskCount.sId ?? '',
+                          value: taskCount.sum.toString(),
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ) : Container(),
@@ -114,27 +119,30 @@ class _TaskScreenState extends State<TaskScreen> {
                 child: Visibility(
                   visible: _getTaskInProgress == false,
                   replacement: circleProgressIndicatorShow(),
-                  child: ListView.builder(
-                    itemCount: taskListModel.taskList?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      return TaskItemCard(
-                        task: taskListModel.taskList![index],
-                        onStatusChange: () {
-                          getTaskList();
-                          if(widget.taskType == "New") {
-                            getTaskCountSummeryList();
-                          }
-                        },
-                        showProgress: (inProgress) {
-                          setState(() {
-                            _getTaskInProgress = inProgress;
-                          });
-                          // if (!inProgress) {
-                          //   showSnackMessage(context, "Task Status Updated.");
-                          // }
-                        },
-                      );
-                    },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemCount: taskListModel.taskList?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return TaskItemCard(
+                          task: taskListModel.taskList![index],
+                          onStatusChange: () {
+                            getTaskList();
+                            if(widget.taskType == "New") {
+                              getTaskCountSummeryList();
+                            }
+                          },
+                          showProgress: (inProgress) {
+                            setState(() {
+                              _getTaskInProgress = inProgress;
+                            });
+                            // if (!inProgress) {
+                            //   showSnackMessage(context, "Task Status Updated.");
+                            // }
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),

@@ -56,7 +56,12 @@ class _TaskItemCardState extends State<TaskItemCard> {
 
 
     return Card(
-      elevation: 4,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(
+          color: colorAss,
+        )
+      ),
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 4),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -87,7 +92,9 @@ class _TaskItemCardState extends State<TaskItemCard> {
                       icon: const Icon(Icons.edit_calendar_rounded, color: colorGreen,),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       icon: const Icon(
                         Icons.delete_forever_outlined,
                         color: colorRed,
