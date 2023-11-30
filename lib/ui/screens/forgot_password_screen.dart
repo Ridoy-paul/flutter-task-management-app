@@ -71,7 +71,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             forgotPasswordSubmit();
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => const PinVerificationScreen()));
                           },
                           child: const Icon(Icons.arrow_circle_right_outlined),
                         ),
@@ -130,9 +129,16 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
       final response = await NetworkCaller().getRequest(Urls.recoveryVerifyEmail(_emailTEController.text.trim()));
       if(response.isSuccess) {
-        //print(response.jsonResponse.status.toString());
-
-       //print(response);
+        if(response.jsonResponse['status'] == 'success') {
+          if(mounted) {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const PinVerificationScreen()));
+          }
+        }
+        else {
+          if(mounted) {
+            showSnackMessage(context, response.jsonResponse['data'], true);
+          }
+        }
       }
       else {
         if(mounted) {

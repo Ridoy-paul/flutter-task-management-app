@@ -54,8 +54,7 @@ class _TaskScreenState extends State<TaskScreen> {
     final NetworkResponse response =
     await NetworkCaller().getRequest(Urls.getTaskStatusCount);
     if (response.isSuccess) {
-      taskCountSummeryListModel =
-          TaskCountSummeryListModel.fromJson(response.jsonResponse);
+      taskCountSummeryListModel = TaskCountSummeryListModel.fromJson(response.jsonResponse);
     }
 
     _getTaskCountSummeryInProgress = false;

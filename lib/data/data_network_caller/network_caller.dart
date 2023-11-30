@@ -71,8 +71,8 @@ class NetworkCaller {
       });
 
       /// This is used for show console log
-      log(response.statusCode.toString());
-      log(response.body.toString());
+      // log(response.statusCode.toString());
+      // log(response.body.toString());
 
       if (response.statusCode == 200) {
         return NetworkResponse(
