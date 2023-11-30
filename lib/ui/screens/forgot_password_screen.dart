@@ -131,6 +131,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       if(response.isSuccess) {
         if(response.jsonResponse['status'] == 'success') {
           if(mounted) {
+            showSnackMessage(context, '6 digit verification code sent your email.');
             Navigator.push(context, MaterialPageRoute(builder: (context) => PinVerificationScreen(email: _emailTEController.text.trim(),),),);
           }
         }
