@@ -131,7 +131,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       if(response.isSuccess) {
         if(response.jsonResponse['status'] == 'success') {
           if(mounted) {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => const PinVerificationScreen()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => PinVerificationScreen(email: _emailTEController.text.trim(),),),);
           }
         }
         else {
