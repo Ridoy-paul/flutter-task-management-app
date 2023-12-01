@@ -10,6 +10,7 @@ class Urls {
   static String deleteTaskItem(String taskId) => '$_baseUrl/deleteTask/$taskId';
   static String recoveryVerifyEmail(String email) => '$_baseUrl/RecoverVerifyEmail/$email';
   static String recoveryVerifyOTP(String email, String code) => '$_baseUrl/RecoverVerifyOTP/$email/$code';
+  static String recoveryPassword = '$_baseUrl/RecoverResetPass';
 
 
 

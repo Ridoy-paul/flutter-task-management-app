@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/utility/helpers.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/data_network_caller/network_response.dart';
+import '../../data/utility/helpers.dart';
+import '../../data/utility/urls.dart';
+import '../widgets/snack_message.dart';
 import 'login_screen.dart';
 import '../style.dart';
 import '../widgets/body_background_widget.dart';
@@ -124,10 +128,48 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     if(_resetPasswordGlobalKey.currentState!.validate()) {
       if(mounted) {
         setState(() {
-          _resetPasswordInProgressStatus = false;
+          _resetPasswordInProgressStatus = true;
         });
       }
 
+      if (_passwordTEController.text != _confirmPasswordTEController.text) {
+        showSnackMessage(context, "Password doesn't match!", true);
+        _resetPasswordInProgressStatus = false;
+        if (mounted) {
+          setState(() {});
+        }
+      }
+
+      final NetworkResponse response = await NetworkCaller().postRequest(Urls.recoveryPassword, body: {
+          "email": widget.email,
+          "OTP": widget.code,
+          "password": _passwordTEController.text,
+      });
+
+      if(response.isSuccess) {
+        if(response.jsonResponse['status'] == 'success') {
+          if(mounted) {
+            showSnackMessage(context, "New Password Set.");
+            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => const LoginScreen()), (route) => false);
+          }
+        }
+        else {
+          if(mounted) {
+            showSnackMessage(context, "Something is error! Please try again.", true);
+          }
+        }
+      }
+      else {
+        if(mounted) {
+          showSnackMessage(context, "Something is error! Please try again.", true);
+        }
+      }
+
+      if(mounted) {
+        setState(() {
+          _resetPasswordInProgressStatus = false;
+        });
+      }
     }
   }
 
