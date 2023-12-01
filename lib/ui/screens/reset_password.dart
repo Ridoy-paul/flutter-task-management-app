@@ -74,11 +74,13 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
 
                     SizedBox(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-
-                        },
-                        child: const Text("Confirm", style: TextStyle(fontSize: 16),),
+                      child: Visibility(
+                        visible: !_resetPasswordInProgressStatus,
+                        replacement: circleProgressIndicatorShow(),
+                        child: ElevatedButton(
+                          onPressed: _resetPasswordConfirm,
+                          child: const Text("Confirm", style: TextStyle(fontSize: 16),),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 18,),
@@ -118,8 +120,15 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     );
   }
 
-  Future<void> resetPasswordConfirm() async {
+  Future<void> _resetPasswordConfirm() async {
+    if(_resetPasswordGlobalKey.currentState!.validate()) {
+      if(mounted) {
+        setState(() {
+          _resetPasswordInProgressStatus = false;
+        });
+      }
 
+    }
   }
 
 }
