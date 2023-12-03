@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import '../../data/data_network_caller/network_caller.dart';
 import '../../data/data_network_caller/network_response.dart';
 import 'package:flutter_task_management_app/data/utility/urls.dart';
@@ -129,6 +130,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> updateUserProfile() async {
+    _updateProfileInProgressStatus = true;
+    if (mounted) {
+      setState(() {});
+    }
 
     Map<String, dynamic> inputData = {
       "email": _emailTEController.text.trim(),
@@ -145,11 +150,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputData,);
 
+    _updateProfileInProgressStatus = true;
+    if (mounted) {
+      setState(() {});
+    }
+
     if(response.isSuccess) {
 
     }
     else {
-
+      if(mounted) {
+        showSnackMessage(context, "Network Error! Please try again.", true);
+      }
     }
   }
 
