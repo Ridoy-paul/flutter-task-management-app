@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
+import 'package:flutter_task_management_app/data/data_network_caller/network_response.dart';
+import 'package:flutter_task_management_app/data/utility/urls.dart';
 import '../../data/utility/helpers.dart';
 import '../controllers/auth_controller.dart';
 import '../widgets/body_background_widget.dart';
@@ -14,12 +17,12 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
 
-  TextEditingController _emailTEController = TextEditingController();
-  TextEditingController _firstNameTEController = TextEditingController();
-  TextEditingController _lastNameTEController = TextEditingController();
-  TextEditingController _mobileTEController = TextEditingController();
-  TextEditingController _passwordTEController = TextEditingController();
-  GlobalKey<FormState> _updateProfileGlobalKey = GlobalKey<FormState>();
+  final TextEditingController _emailTEController = TextEditingController();
+  final TextEditingController _firstNameTEController = TextEditingController();
+  final TextEditingController _lastNameTEController = TextEditingController();
+  final TextEditingController _mobileTEController = TextEditingController();
+  final TextEditingController _passwordTEController = TextEditingController();
+  final GlobalKey<FormState> _updateProfileGlobalKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -118,6 +121,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+
+  Future<void> updateUserProfile() async {
+
+    Map<String, dynamic> inputDate = {
+      "email": _emailTEController.text.trim(),
+      "firstName": _firstNameTEController.text.trim(),
+      "lastName": _lastNameTEController.text.trim(),
+      "mobile": _mobileTEController.text.trim(),
+      "password":"1234",
+      "photo":""
+    };
+
+    final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputDate,);
+
+    if(response.isSuccess) {
+
+    }
+    else {
+
+    }
+  }
+
+
 
   Container photoPickerField() {
     return Container(
