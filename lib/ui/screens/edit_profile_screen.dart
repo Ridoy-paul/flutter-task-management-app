@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_task_management_app/data/models/user_model.dart';
 import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
 import '../../data/data_network_caller/network_caller.dart';
 import '../../data/data_network_caller/network_response.dart';
-import 'package:flutter_task_management_app/data/utility/urls.dart';
+import '../../data/utility/urls.dart';
 import '../../data/utility/helpers.dart';
 import '../controllers/auth_controller.dart';
 import '../widgets/body_background_widget.dart';
@@ -130,6 +131,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Future<void> updateUserProfile() async {
+    if(!_updateProfileGlobalKey.currentState!.validate()) {
+      return;
+    }
+
     _updateProfileInProgressStatus = true;
     if (mounted) {
       setState(() {});
@@ -140,8 +145,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       "firstName": _firstNameTEController.text.trim(),
       "lastName": _lastNameTEController.text.trim(),
       "mobile": _mobileTEController.text.trim(),
-      "password":"1234",
-      "photo":""
     };
 
     if(_passwordTEController.text.isNotEmpty) {
@@ -150,12 +153,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputData,);
 
-    _updateProfileInProgressStatus = true;
+    _updateProfileInProgressStatus = false;
     if (mounted) {
       setState(() {});
     }
 
     if(response.isSuccess) {
+      AuthController.updateUserInformation(UserModel(
+        email: _emailTEController.text.trim(),
+        firstName: _firstNameTEController.text.trim(),
+        lastName: _lastNameTEController.text.trim(),
+        mobile: _mobileTEController.text.trim(),
+      ));
+
+      if(mounted) {
+        showSnackMessage(context, "Profile Updated.");
+      }
 
     }
     else {
