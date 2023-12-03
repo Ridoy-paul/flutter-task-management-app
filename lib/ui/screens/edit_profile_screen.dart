@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/data_network_caller/network_caller.dart';
-import 'package:flutter_task_management_app/data/data_network_caller/network_response.dart';
+import '../../data/data_network_caller/network_caller.dart';
+import '../../data/data_network_caller/network_response.dart';
 import 'package:flutter_task_management_app/data/utility/urls.dart';
 import '../../data/utility/helpers.dart';
 import '../controllers/auth_controller.dart';
@@ -16,6 +16,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+
+  bool _updateProfileInProgressStatus = false;
 
   final TextEditingController _emailTEController = TextEditingController();
   final TextEditingController _firstNameTEController = TextEditingController();
@@ -105,9 +107,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         SizedBox(
                           width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: const Icon(Icons.arrow_circle_right_outlined),
+                          child: Visibility(
+                            visible: !_updateProfileInProgressStatus,
+                            replacement: circleProgressIndicatorShow(),
+                            child: ElevatedButton(
+                              onPressed: updateUserProfile,
+                              child: const Icon(Icons.arrow_circle_right_outlined),
+                            ),
                           ),
                         ),
                       ],
@@ -124,7 +130,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> updateUserProfile() async {
 
-    Map<String, dynamic> inputDate = {
+    Map<String, dynamic> inputData = {
       "email": _emailTEController.text.trim(),
       "firstName": _firstNameTEController.text.trim(),
       "lastName": _lastNameTEController.text.trim(),
@@ -133,7 +139,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       "photo":""
     };
 
-    final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputDate,);
+    if(_passwordTEController.text.isNotEmpty) {
+      inputData['password'] = _passwordTEController.text;
+    }
+
+    final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputData,);
 
     if(response.isSuccess) {
 
