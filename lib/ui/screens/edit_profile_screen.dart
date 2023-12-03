@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../data/utility/helpers.dart';
+import '../controllers/auth_controller.dart';
 import '../widgets/body_background_widget.dart';
 import '../style.dart';
 import '../widgets/profile_summery_card_widget.dart';
@@ -11,6 +13,25 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+
+  TextEditingController _emailTEController = TextEditingController();
+  TextEditingController _firstNameTEController = TextEditingController();
+  TextEditingController _lastNameTEController = TextEditingController();
+  TextEditingController _mobileTEController = TextEditingController();
+  TextEditingController _passwordTEController = TextEditingController();
+  GlobalKey<FormState> _updateProfileGlobalKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _emailTEController.text = AuthController.user?.email ?? '';
+    _firstNameTEController.text = AuthController.user?.firstName ?? '';
+    _lastNameTEController.text = AuthController.user?.lastName ?? '';
+    _mobileTEController.text = AuthController.user?.mobile ?? '';
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,58 +45,70 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               child: BodyBackgroundWidget(
                 child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      Text(
-                        "Update Profile",
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      photoPickerField(),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: inputStyle("Email"),
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: inputStyle("First Name"),
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        keyboardType: TextInputType.text,
-                        decoration: inputStyle("Last Name"),
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        keyboardType: TextInputType.phone,
-                        decoration: inputStyle("Mobile"),
-                      ),
-                      const SizedBox(height: 15),
-                      TextFormField(
-                        obscureText: true,
-                        decoration: inputStyle("Password"),
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Icon(Icons.arrow_circle_right_outlined),
+                  child: Form(
+                    key: _updateProfileGlobalKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 50,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Update Profile",
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        photoPickerField(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          controller: _emailTEController,
+                          keyboardType: TextInputType.emailAddress,
+                          decoration: inputStyle("Email"),
+                          validator: (value) => inputValidate(value, "Email is Required!"),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _firstNameTEController,
+                          keyboardType: TextInputType.text,
+                          decoration: inputStyle("First Name"),
+                          validator: (value) => inputValidate(value, "First name is required!"),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _lastNameTEController,
+                          keyboardType: TextInputType.text,
+                          decoration: inputStyle("Last Name"),
+                          validator: (value) => inputValidate(value, "last name is required!"),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _mobileTEController,
+                          keyboardType: TextInputType.phone,
+                          decoration: inputStyle("Mobile"),
+                          validator: (value) => inputValidate(value, "Phone number is required!"),
+                        ),
+                        const SizedBox(height: 15),
+                        TextFormField(
+                          controller: _passwordTEController,
+                          obscureText: true,
+                          decoration: inputStyle("Password (optional)"),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            child: const Icon(Icons.arrow_circle_right_outlined),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
