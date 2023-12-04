@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import '../controllers/auth_controller.dart';
 import '../screens/edit_profile_screen.dart';
