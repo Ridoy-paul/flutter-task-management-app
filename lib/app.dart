@@ -11,7 +11,7 @@ class TaskManagementApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigationKey,
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       theme: ThemeData(
 

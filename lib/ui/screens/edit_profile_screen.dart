@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../data/models/user_model.dart';
@@ -143,6 +145,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       setState(() {});
     }
 
+    String? photoInBase64;
+
     Map<String, dynamic> inputData = {
       "email": _emailTEController.text.trim(),
       "firstName": _firstNameTEController.text.trim(),
@@ -152,6 +156,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     if(_passwordTEController.text.isNotEmpty) {
       inputData['password'] = _passwordTEController.text;
+    }
+
+    if(photo != null) {
+      List<int> imageBytes = await photo!.readAsBytes();
+      photoInBase64 = base64Encode(imageBytes);
+      inputData['photo'] = photoInBase64;
     }
 
     final NetworkResponse response = await NetworkCaller().postRequest(Urls.profileUpdate, body: inputData,);
@@ -167,6 +177,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         firstName: _firstNameTEController.text.trim(),
         lastName: _lastNameTEController.text.trim(),
         mobile: _mobileTEController.text.trim(),
+        photo: photoInBase64 ?? AuthController.user?.photo,
       ));
 
       if(mounted) {
@@ -217,13 +228,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             flex: 3,
             child: InkWell(
               onTap: () async {
-                final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 30);
                 if(image != null) {
                   photo = image;
                   if(mounted) {
-                    setState(() {
-
-                    });
+                    setState(() {});
                   }
                 }
               },
