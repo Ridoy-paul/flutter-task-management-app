@@ -1,16 +1,12 @@
-# flutter_task_management_app
+# Task Management App with API.
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![output](assets/images/output/1.png)
+![output](assets/images/output/2.png)
+![output](assets/images/output/3.png)
+![output](assets/images/output/4.png)
+![output](assets/images/output/6.png)
+![output](assets/images/output/7.png)
+![output](assets/images/output/8.png)
+![output](assets/images/output/9.png)
+![output](assets/images/output/10.png)
+![output](assets/images/output/11.png)
