@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_task_management_app/data/models/user_model.dart';
-import 'package:flutter_task_management_app/ui/widgets/snack_message.dart';
+import 'package:image_picker/image_picker.dart';
+import '../../data/models/user_model.dart';
+import '../widgets/snack_message.dart';
 import '../../data/data_network_caller/network_caller.dart';
 import '../../data/data_network_caller/network_response.dart';
 import '../../data/utility/urls.dart';
@@ -18,6 +19,8 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+
+  XFile? photo;
 
   bool _updateProfileInProgressStatus = false;
 
@@ -212,9 +215,26 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
           Expanded(
             flex: 3,
-            child: Container(
-              padding: const EdgeInsets.only(left: 16),
-              child: const Text("No file selected"),
+            child: InkWell(
+              onTap: () async {
+                final XFile? image = await ImagePicker().pickImage(source: ImageSource.camera);
+                if(image != null) {
+                  photo = image;
+                  if(mounted) {
+                    setState(() {
+
+                    });
+                  }
+                }
+              },
+              child: Container(
+                padding: const EdgeInsets.only(left: 16),
+                child: Visibility(
+                  visible: photo == null,
+                  replacement: Text(photo?.name ?? ''),
+                  child: const Text("Select a photo"),
+                ),
+              ),
             ),
           )
         ],
