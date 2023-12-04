@@ -1,4 +1,4 @@
-# Task Management App with API.
+# Task Management App with API Integration.
 
 ![output](assets/images/output/1.png)
 ![output](assets/images/output/2.png)
